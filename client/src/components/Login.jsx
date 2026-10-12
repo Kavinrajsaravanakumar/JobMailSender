@@ -88,9 +88,6 @@ const Login = () => {
                     </Button>
                     <p onClick={() => setState(prev => prev === "login" ? "register" : "login")} className="text-white text-sm mt-3 mb-11">{state === "login" ? "Don't have an account?" : "Already have an account?"} <a href="#" className="text-green-300 hover:underline">click here</a></p>
                 </form>
-                <Button type="submit" className="mt-2 w-full mt-5" onClick={() => navigate("/email")}>
-                    Email
-                </Button>
             </div>
         </>
     )

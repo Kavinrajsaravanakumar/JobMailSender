@@ -1,4 +1,4 @@
-export default function EmailsTable({ emails, deleteEmail }) {
+export default function EmailsTable({ emails, onDeleteEmail }) {
     return (
         <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             <table className="min-w-full divide-y divide-gray-200 ">
@@ -16,11 +16,11 @@ export default function EmailsTable({ emails, deleteEmail }) {
                         <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Content
                         </th>
-                        <th className="px-6 py-3">
+                        <th className="px-6 py-3  text-left text-xs font-medium uppercase tracking-wider">
                             Attachment
                         </th>
-                        <th className="px-6 py-3">
-                            Status
+                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -58,14 +58,14 @@ export default function EmailsTable({ emails, deleteEmail }) {
                                     <div className="hidden group-hover:block absolute left-0 top-full z-50 pt-2">
                                         <div
                                             className="
-                    w-72 max-h-60 overflow-y-auto
-                    whitespace-pre-wrap break-words
-                    p-3 rounded-2xl text-sm text-black
-                    bg-white
-                    border border-white/20
-                    shadow-[0_8px_30px_rgba(0,0,0,0.6)]
-                    [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.3)_transparent]
-                "
+                                                        w-72 max-h-60 overflow-y-auto
+                                                        whitespace-pre-wrap break-words
+                                                        p-3 rounded-2xl text-sm text-black
+                                                        bg-white
+                                                        border border-white/20
+                                                        shadow-[0_8px_30px_rgba(0,0,0,0.6)]
+                                                        [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.3)_transparent]
+                                                    "
                                         >
                                             {email.subject}
                                         </div>
@@ -81,14 +81,14 @@ export default function EmailsTable({ emails, deleteEmail }) {
                                     <div className="hidden group-hover:block absolute left-0 top-full z-100 pt-2">
                                         <div
                                             className="
-                    w-96 max-h-72 overflow-y-auto
-                    whitespace-pre-wrap break-words
-                    p-4 rounded-2xl text-sm text-black
-                    bg-white
-                    border border-white/20
-                    shadow-[0_8px_30px_rgba(0,0,0,0.6)]
-                    [scrollbar-width:thin] [scrollbar-color:rgba(6, 6, 6, 0.34)_transparent]
-                "
+                                                        w-96 max-h-72 overflow-y-auto
+                                                        whitespace-pre-wrap break-words
+                                                        p-4 rounded-2xl text-sm text-black
+                                                        bg-white
+                                                        border border-white/20
+                                                        shadow-[0_8px_30px_rgba(0,0,0,0.6)]
+                                                        [scrollbar-width:thin] [scrollbar-color:rgba(6, 6, 6, 0.34)_transparent]
+                                                    "
                                         >
                                             {email.text}
                                         </div>
@@ -102,10 +102,9 @@ export default function EmailsTable({ emails, deleteEmail }) {
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center justify-end gap-3">
                                     <button
-                                        onClick={() => deleteEmail?.(email._id)}
+                                        onClick={() => onDeleteEmail?.(email._id)}
                                         className="text-sm font-medium text-red-500 hover:bg-red-100 transition bg-white/10 backdrop-blur-md px-3 py-1 rounded-md cursor-pointer"
                                     >
-                                        
                                         Delete
                                     </button>
                                 </div>

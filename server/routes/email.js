@@ -52,4 +52,16 @@ emailRouter.get("/getemails/:userMail", async (req, res) => {
         return res.status(500).json({ message: err.message });
     }
 });
+
+emailRouter.delete("/delete/:id", async (req,res) => {
+    try{
+        const mail = await Email.findByIdAndDelete(req.params.id);
+        if(!mail){
+            return res.status(404).json({message : "Email Not Found"})
+        }
+        return res.status(200).json({message : "Email Deleted Successfully"})
+    }catch(err){
+        return res.status(500).json({message : err.message})
+    }
+})
 module.exports = emailRouter;

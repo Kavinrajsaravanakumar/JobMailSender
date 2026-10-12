@@ -7,7 +7,7 @@ import UsersTable from "../components/UsersTable.jsx";
 import { useState, useEffect } from "react";
 import { GetUsers } from "../services/userServices.js";
 import EmailsTable from "../components/EmailsTable.jsx";
-
+import { DeleteEmail } from "../services/emailService.js"
 
 function Dashboard() {
 
@@ -63,39 +63,51 @@ function Dashboard() {
             toast.error(err.response?.data?.message || "Error updating user");
         }
     }
-    return (<>
-        <Button
-            className="px-6 m-4"
-            onClick={() => navigate(-1)}
-        >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M20 12H4M4 12L10 18M4 12L10 6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                />
-            </svg>
 
-        </Button>
+    const handleDeleteEmail = async (id) => {
+        try {
+            setEmails((prev) => prev.filter((mail) => mail._id !== id));
+            const res = await DeleteEmail(id);
+            toast.success(res.message);
+        } catch (err) {
+            toast.error(err.message);
+            console.log(err);
+        }
+    }
+    return (<>
+        <div className="flex m-4 justify-between ">
+            <Button
+                className="px-6 "
+                onClick={() => navigate(-1)}
+            >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20 12H4M4 12L10 18M4 12L10 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            </Button>
+            <Button onClick={handleLogout} >
+                <div className="flex items-center justify-center gap-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16 17L21 12M21 12L16 7M21 12H9M9 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H9"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                    Logout
+                </div>
+            </Button>
+        </div>
         <div className="page flex flex-col justify-center items-center">
             <div className=" flex justify-center items-center gap-5 p-50">
                 <GradientDashboard />
-                <Button onClick={handleLogout} >
-                    <div className="flex items-center justify-center gap-2">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M16 17L21 12M21 12L16 7M21 12H9M9 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H9"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
-                        Logout
-                    </div>
-                </Button>
                 <Button onClick={getUsers}>
                     <div className="flex items-center justify-center gap-2">
                         {showUserTable == "false" ?
@@ -163,16 +175,17 @@ function Dashboard() {
                     </div>
                 </Button>
             </div>
-            {showUserTable === "true" && 
-            <div className="flex justify-center items-center mt-10 mb-50">
-                <UsersTable users={users} onDelete={handleDelete} onUpdate={handleUpdate} />
-            </div>
-}
-            {showEmailTable === "true" && 
-            <div className="flex justify-center items-center mt-10 mb-50">
-                <EmailsTable emails={emails} />
-            </div>}
+            {showUserTable === "true" &&
+                <div className="flex justify-center items-center mt-10 mb-50">
+                    <UsersTable users={users} onDelete={handleDelete} onUpdate={handleUpdate} />
+                </div>
+            }
+            {showEmailTable === "true" &&
+                <div className="flex justify-center items-center mt-10 mb-50">
+                    <EmailsTable emails={emails} onDeleteEmail={handleDeleteEmail} />
+                </div>}
         </div>
+
     </>
     );
 };
