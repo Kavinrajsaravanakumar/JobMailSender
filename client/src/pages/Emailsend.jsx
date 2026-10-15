@@ -29,12 +29,16 @@ function Emailsend() {
                 
                 Thank you for your time and consideration.
                 
+                GitHub - https://github.com/Kavinrajsaravanakumar
+                LinkedIn - https://www.linkedin.com/in/kavinraj-s-0a4481292
+                Portfolio - https://v0-kavin-raj-portfolio.vercel.app/
+
                 Kind regards,
                 Kavinraj S 
                 9994814266 
                 kavinrajsaravanakumar@gmail.com`,
         html: "",
-        userMail : "kavinrajsaravanakumar@gmail.com"
+        userMail: "kavinrajsaravanakumar@gmail.com"
     });
 
     const handleChange = (e) => {
@@ -133,6 +137,7 @@ function Emailsend() {
                         <Button
                             className={`px-6 cursor-pointer ${loading == "true" ? "cursor-wait" : ""}`}
                             onClick={handleSubmit}
+                            disabled={loading == "true"}
                         >
                             {loading == "true" ?
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
