@@ -55,4 +55,5 @@ UserRouter.delete("/:id", protect, async (req, res) => {
     res.status(204).json({ message: "user deleted successfully"});
 });
 
+
 module.exports = UserRouter;
